@@ -19,7 +19,7 @@ SortBy              = "default"
 
 [sidebar]
     emoji    = "🍥"
-    subtitle = "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    subtitle = "记录学习、生活和折腾。"
     avatar   = "img/avatar.png"
 
 [article]
@@ -29,7 +29,7 @@ SortBy              = "default"
 
     [article.license]
         enabled = true
-        default = "Licensed under CC BY-NC-SA 4.0"
+        default = "本文采用 CC BY-NC-SA 4.0 协议许可"
 
 [widgets]
     homepage = [
