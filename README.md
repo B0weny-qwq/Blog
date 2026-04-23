@@ -129,6 +129,33 @@ content/post/my-first-post/demo.png
 image: cover.jpg
 ```
 
+## 一键修复 Hugo 兼容问题
+
+如果之前文章结构写乱了，可以直接运行：
+
+```bash
+bash scripts/fix-hugo-posts.sh
+```
+
+只预览不修改：
+
+```bash
+bash scripts/fix-hugo-posts.sh --check
+```
+
+这个脚本会自动处理：
+
+- 把文章正文重命名成 `index.md`
+- 把 `photo/` 里的图片移动到文章根目录
+- 删除空的 `photo/` 目录
+- 补齐缺失的 `title`、`date`、`draft`
+
+详细说明见：
+
+```text
+docs/hugo-post-compat.md
+```
+
 ## 换头像和 favicon
 
 当前头像配置在 `config/_default/params.toml`：
