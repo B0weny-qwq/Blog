@@ -13,21 +13,22 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.123.7
+      HUGO_VERSION: 0.160.1
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: recursive
           fetch-depth: 0
 
       - name: Setup Pages
+        id: pages
         uses: actions/configure-pages@v5
 
       - name: Setup Hugo
@@ -36,8 +37,15 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
+      - name: Configure Git
+        run: git config core.quotepath false
+
       - name: Build with Hugo
-        run: hugo --minify
+        run: |
+          hugo \
+            --gc \
+            --minify \
+            --baseURL "${{ steps.pages.outputs.base_url }}/"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
