@@ -15,6 +15,42 @@
 5. 推送到 GitHub：`git push`
 6. GitHub Actions 会自动发布到 GitHub Pages
 
+## 最短操作清单
+
+以后发博客，优先照这个顺序做：
+
+```bash
+cd ~/Blog
+bash scripts/fix-hugo-posts.sh
+/home/boweny/.local/bin/hugo --gc --minify --baseURL https://b0weny-qwq.github.io/Blog/
+git status
+git add .
+git commit -m "Update blog"
+git push
+```
+
+如果只想先看看脚本会修什么，不真正修改：
+
+```bash
+bash scripts/fix-hugo-posts.sh --check
+```
+
+记住文章目录长这样就最稳：
+
+```text
+content/post/文章文件夹/
+  index.md
+  图片.jpg
+  其他图片.png
+```
+
+不要这样写：
+
+```text
+content/post/文章文件夹/Hellow world.md
+content/post/文章文件夹/photo/图片.jpg
+```
+
 ## 本地预览
 
 进入项目目录：
