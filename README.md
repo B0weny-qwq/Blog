@@ -9,10 +9,11 @@
 日常只需要记住这几个动作：
 
 1. 写文章：在 `content/post/` 下面新建一个文件夹和 `index.md`
-2. 本地预览：运行 `hugo server`
-3. 没问题后提交：`git add . && git commit -m "..."`
-4. 推送到 GitHub：`git push`
-5. GitHub Actions 会自动发布到 GitHub Pages
+2. 放图片：文章图片放在文章自己的文件夹里，头像放在 `assets/img/`
+3. 本地预览：运行 `hugo server`
+4. 没问题后提交：`git add . && git commit -m "..."`
+5. 推送到 GitHub：`git push`
+6. GitHub Actions 会自动发布到 GitHub Pages
 
 ## 本地预览
 
@@ -32,7 +33,7 @@ hugo server --bind 127.0.0.1 --baseURL http://127.0.0.1:1313/ --port 1313 --disa
 
 <http://127.0.0.1:1313/>
 
-如果提示 Hugo 版本太旧，优先使用本机已经安装的新版本：
+如果提示 Hugo 版本太旧，使用本机安装的新版本：
 
 ```bash
 ~/.local/bin/hugo server --bind 127.0.0.1 --baseURL http://127.0.0.1:1313/ --port 1313 --disableFastRender
@@ -40,7 +41,7 @@ hugo server --bind 127.0.0.1 --baseURL http://127.0.0.1:1313/ --port 1313 --disa
 
 ## 写一篇新文章
 
-推荐每篇文章单独一个文件夹，图片也放在同一个文件夹里。
+推荐每篇文章单独一个文件夹，文章正文叫 `index.md`，图片也放在同一个文件夹里。
 
 例如写一篇 `my-first-post`：
 
@@ -64,19 +65,19 @@ tags:
 POST
 ```
 
-然后启动本地预览：
-
-```bash
-hugo server
-```
-
 文章文件位置：
 
 ```text
 content/post/my-first-post/index.md
 ```
 
-## 文章开头的配置是什么意思
+写完后本地预览：
+
+```bash
+hugo server
+```
+
+## 文章开头的配置
 
 每篇文章顶部 `---` 中间的内容叫 front matter。
 
@@ -91,6 +92,7 @@ categories:
 tags:
   - 标签1
   - 标签2
+image: cover.jpg
 ```
 
 说明：
@@ -101,8 +103,9 @@ tags:
 - `draft: false`：正式发布
 - `categories`：分类
 - `tags`：标签
+- `image`：文章封面图，图片文件放在文章同目录
 
-## 放图片
+## 文章里放图片
 
 把图片放到文章同目录，例如：
 
@@ -118,11 +121,62 @@ content/post/my-first-post/demo.png
 ![图片说明](demo.png)
 ```
 
-如果想设置封面，可以参考已有文章：
+如果想设置封面，在文章开头加：
+
+```yaml
+image: cover.jpg
+```
+
+## 换头像和 favicon
+
+当前头像配置在 `config/_default/params.toml`：
+
+```toml
+[sidebar]
+    avatar = "img/avatar.png"
+```
+
+当前头像文件是：
 
 ```text
-content/post/hello-world/index.md
-content/post/shortcodes/index.md
+assets/img/avatar.png
+```
+
+换头像最简单的方法：直接用你的图片覆盖这个文件。
+
+```bash
+cp /你的/图片/路径/avatar.png assets/img/avatar.png
+```
+
+要求：
+
+- 文件名保持 `avatar.png` 最省事
+- 建议用正方形图片，比如 `512x512` 或 `300x300`
+- 图片太大也能用，但页面加载会慢，建议压到 1MB 以下
+
+如果你的头像是 JPG，可以这样做：
+
+```bash
+cp /你的/图片/路径/avatar.jpg assets/img/avatar.jpg
+```
+
+然后改 `config/_default/params.toml`：
+
+```toml
+[sidebar]
+    avatar = "img/avatar.jpg"
+```
+
+favicon 同理：
+
+```text
+assets/img/favicon.png
+```
+
+配置在 `config/_default/params.toml`：
+
+```toml
+favicon = "img/favicon.png"
 ```
 
 ## 修改博客信息
@@ -133,8 +187,8 @@ content/post/shortcodes/index.md
 | --- | --- |
 | 网站标题、网址、语言 | `config/_default/config.toml` |
 | 侧边栏头像、简介、页脚 | `config/_default/params.toml` |
-| 顶部/侧边菜单 | `config/_default/menu.toml` |
-| 多语言标题 | `config/_default/_languages.toml` |
+| 菜单和社交链接 | `config/_default/menu.toml` 和 `content/page/` |
+| 多语言标题 | `config/_default/languages.toml` |
 | 文章链接格式 | `config/_default/permalinks.toml` |
 | Hugo 模块主题 | `config/_default/module.toml` |
 
@@ -159,7 +213,7 @@ hugo --gc --minify --baseURL https://b0weny-qwq.github.io/Blog/
 ```bash
 git status
 git add .
-git commit -m "Update blog content"
+git commit -m "Update blog"
 git push
 ```
 
@@ -213,7 +267,8 @@ public/              # 本地构建产物，不需要手动编辑
 
 - 不要手动改 `public/` 里的文件，它是 Hugo 自动生成的。
 - 写文章主要改 `content/post/`。
-- 改网站外观和信息主要看 `config/_default/params.toml`。
+- 改头像、简介、页脚主要看 `config/_default/params.toml`。
+- 改菜单主要看 `content/_index.md` 和 `content/page/`。
 - 如果 GitHub Pages 没更新，先去 Actions 页面看是否部署成功。
 - 如果 `hugo server` 报版本问题，使用 `~/.local/bin/hugo`。
 
