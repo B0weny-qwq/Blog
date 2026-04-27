@@ -143,6 +143,21 @@ function renderUnlockPage(payload) {
     const form = document.getElementById("unlock-form");
     const input = document.getElementById("password");
     const message = document.getElementById("message");
+    let unlockedFrame = null;
+
+    window.addEventListener("pageshow", (event) => {
+      if (event.persisted) {
+        window.location.reload();
+      }
+    });
+
+    window.addEventListener("pagehide", () => {
+      if (unlockedFrame) {
+        unlockedFrame.remove();
+        unlockedFrame = null;
+      }
+      input.value = "";
+    });
 
     function decodeBase64Url(value) {
       const base64 = value.replace(/-/g, "+").replace(/_/g, "/");
@@ -202,9 +217,17 @@ function renderUnlockPage(payload) {
       try {
         const html = await unlock(input.value);
         input.value = "";
-        document.open();
-        document.write(html);
-        document.close();
+        document.body.replaceChildren();
+
+        unlockedFrame = document.createElement("iframe");
+        unlockedFrame.setAttribute("title", "protected content");
+        unlockedFrame.style.position = "fixed";
+        unlockedFrame.style.inset = "0";
+        unlockedFrame.style.width = "100%";
+        unlockedFrame.style.height = "100%";
+        unlockedFrame.style.border = "0";
+        unlockedFrame.srcdoc = html;
+        document.body.appendChild(unlockedFrame);
       } catch {
         input.value = "";
         message.textContent = "密码错误";
