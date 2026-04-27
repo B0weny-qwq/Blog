@@ -50,6 +50,12 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      - name: Encrypt protected post
+        env:
+          BLOG_PASSWORD: ${{ secrets.BLOG_PASSWORD }}
+          BLOG_ENCRYPT_PATHS: p/shanwei-smart-car-seven-sins/index.html
+        run: node scripts/encrypt-public.mjs public
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
