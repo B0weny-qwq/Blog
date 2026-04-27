@@ -1,5 +1,6 @@
 ---
 title: 回忆“进化”历程（二）
+slug: 回忆进化历程二
 date: 2026-04-24T00:20:00+08:00
 draft: false
 categories:

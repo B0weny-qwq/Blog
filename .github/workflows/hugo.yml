@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       HUGO_VERSION: 0.160.1
+      HUGO_WALINE_SERVER_URL: ${{ vars.HUGO_WALINE_SERVER_URL }}
     steps:
       - name: Checkout
         uses: actions/checkout@v5

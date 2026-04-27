@@ -1,5 +1,6 @@
 ---
 title: Hello World
+slug: hello-world
 date: 2026-04-23
 draft: false
 categories:

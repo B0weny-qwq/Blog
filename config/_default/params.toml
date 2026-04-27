@@ -49,7 +49,23 @@ SortBy              = "default"
 ## Comments
 [comments]
     enabled  = true
-    provider = "disqus"
+    provider = "waline"
 
-    # See all the available configurations at https://github.com/CaiJimmy/hugo-theme-stack/blob/master/config/_default/params.toml
-    # Copy the configurations you need from there and paste it here.
+    [comments.waline]
+        # Prefer HUGO_WALINE_SERVER_URL from the build environment.
+        # You can also hard-code your Waline server URL here if you want.
+        serverURL      = ""
+        lang           = "zh-CN"
+        login          = "disable"
+        pageSize       = 10
+        pageview       = false
+        reaction       = false
+        search         = false
+        wordLimit      = 500
+        meta           = ["nick", "mail", "link"]
+        requiredMeta   = ["nick", "mail"]
+        commentSorting = "oldest"
+
+        [comments.waline.locale]
+            admin       = "博主"
+            placeholder = "欢迎留言。支持匿名评论，昵称和邮箱为必填。"
