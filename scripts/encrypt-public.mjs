@@ -56,6 +56,9 @@ function renderUnlockPage(payload) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>请输入密码</title>
   <style>
     :root {
@@ -139,7 +142,6 @@ function renderUnlockPage(payload) {
   </main>
   <script>
     const payload = ${serializedPayload};
-    const storageKey = "blog-session-password";
     const form = document.getElementById("unlock-form");
     const input = document.getElementById("password");
     const message = document.getElementById("message");
@@ -193,31 +195,22 @@ function renderUnlockPage(payload) {
       return new TextDecoder().decode(decrypted);
     }
 
-    async function tryPassword(password, persist) {
+    async function tryPassword(password) {
       message.textContent = "";
       try {
         const html = await unlock(password);
-        if (persist) {
-          localStorage.setItem(storageKey, password);
-        }
         document.open();
         document.write(html);
         document.close();
       } catch {
-        localStorage.removeItem(storageKey);
         message.textContent = "密码错误";
       }
     }
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();
-      tryPassword(input.value, true);
+      tryPassword(input.value);
     });
-
-    const savedPassword = localStorage.getItem(storageKey);
-    if (savedPassword) {
-      tryPassword(savedPassword, false);
-    }
   </script>
 </body>
 </html>
