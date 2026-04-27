@@ -198,13 +198,13 @@ function renderUnlockPage(payload) {
       try {
         const html = await unlock(password);
         if (persist) {
-          sessionStorage.setItem(storageKey, password);
+          localStorage.setItem(storageKey, password);
         }
         document.open();
         document.write(html);
         document.close();
       } catch {
-        sessionStorage.removeItem(storageKey);
+        localStorage.removeItem(storageKey);
         message.textContent = "密码错误";
       }
     }
@@ -214,7 +214,7 @@ function renderUnlockPage(payload) {
       tryPassword(input.value, true);
     });
 
-    const savedPassword = sessionStorage.getItem(storageKey);
+    const savedPassword = localStorage.getItem(storageKey);
     if (savedPassword) {
       tryPassword(savedPassword, false);
     }
