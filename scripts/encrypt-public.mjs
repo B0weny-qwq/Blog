@@ -4,6 +4,7 @@ import path from "node:path";
 
 const publicDir = process.argv[2] || "public";
 const password = process.env.BLOG_PASSWORD;
+const encryptedPaths = parseEncryptedPaths(process.env.BLOG_ENCRYPT_PATHS);
 const iterations = 210000;
 
 if (!password) {
@@ -11,7 +12,17 @@ if (!password) {
   process.exit(1);
 }
 
-const textDecoder = new TextDecoder();
+if (encryptedPaths.length === 0) {
+  console.error("BLOG_ENCRYPT_PATHS must list the generated HTML files to encrypt.");
+  process.exit(1);
+}
+
+function parseEncryptedPaths(value) {
+  return (value || "")
+    .split(/[\n,]/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
 
 function base64Url(buffer) {
   return Buffer.from(buffer).toString("base64url");
@@ -238,7 +249,7 @@ async function removeIfExists(file) {
 }
 
 const files = await walk(publicDir);
-const htmlFiles = files.filter((file) => file.endsWith(".html"));
+const htmlFiles = encryptedPaths.map((target) => path.join(publicDir, target));
 
 for (const file of htmlFiles) {
   const original = await fs.readFile(file, "utf8");
@@ -251,5 +262,5 @@ await Promise.all(
     .map(removeIfExists)
 );
 
-console.log(`Encrypted ${htmlFiles.length} HTML files in ${publicDir}.`);
+console.log(`Encrypted ${htmlFiles.length} selected HTML file(s) in ${publicDir}.`);
 console.log("Removed generated XML/JSON indexes that could expose content.");
