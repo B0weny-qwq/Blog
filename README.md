@@ -1,6 +1,10 @@
 # Blog
 
-这是我的个人博客，使用 [Hugo](https://gohugo.io/) + [Stack 主题](https://github.com/CaiJimmy/hugo-theme-stack) 搭建，托管在 GitHub Pages。
+这是我的个人博客，使用 [Hugo](https://gohugo.io/) + [Stack 主题](https://github.com/CaiJimmy/hugo-theme-stack) 搭建。
+
+源码主仓库：<https://github.com/B0weny-qwq/Blog>
+
+国内镜像仓库：<https://gitee.com/b0vveny/Blog>
 
 访问地址：<https://b0weny-qwq.github.io/Blog/>
 
@@ -14,6 +18,12 @@
 4. 没问题后提交：`git add . && git commit -m "..."`
 5. 推送到 GitHub：`git push`
 6. GitHub Actions 会自动发布到 GitHub Pages
+
+说明：
+
+- GitHub 仓库是主仓库
+- Gitee 仓库是国内代码镜像，方便国内用户拉取源码
+- 当前博客在线地址仍然是 GitHub Pages，不是 Gitee 仓库页面
 
 ## 最短操作清单
 
@@ -291,6 +301,25 @@ Actions 页面：
 部署成功后访问：
 
 <https://b0weny-qwq.github.io/Blog/>
+
+## Gitee 镜像
+
+如果想把代码同步到 Gitee，先添加一个额外远端：
+
+```bash
+git remote add gitee https://gitee.com/b0vveny/Blog.git
+```
+
+以后同步镜像：
+
+```bash
+git push gitee main
+```
+
+说明：
+
+- 这个 Gitee 地址用于同步代码仓库
+- 截至 2026-04-23，Gitee 帮助中心把 `Gitee Pages` 标记为“功能已下线”，所以单独有镜像仓库并不等于博客站点能直接在 Gitee Pages 上访问
 
 ## 常用命令速查
 
