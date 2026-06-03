@@ -259,12 +259,28 @@ async function removeIfExists(file) {
   await fs.rm(file, { force: true });
 }
 
+async function fileExists(file) {
+  try {
+    await fs.access(file);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 const files = await walk(publicDir);
 const htmlFiles = encryptedPaths.map((target) => path.join(publicDir, target));
+const existingHtmlFiles = [];
 
 for (const file of htmlFiles) {
+  if (!(await fileExists(file))) {
+    console.warn(`Skip missing protected file: ${file}`);
+    continue;
+  }
+
   const original = await fs.readFile(file, "utf8");
   await fs.writeFile(file, encryptHtml(original), "utf8");
+  existingHtmlFiles.push(file);
 }
 
 await Promise.all(
@@ -273,5 +289,5 @@ await Promise.all(
     .map(removeIfExists)
 );
 
-console.log(`Encrypted ${htmlFiles.length} selected HTML file(s).`);
+console.log(`Encrypted ${existingHtmlFiles.length} selected HTML file(s).`);
 console.log("Removed generated XML/JSON indexes that could expose protected content.");
