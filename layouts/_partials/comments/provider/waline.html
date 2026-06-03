@@ -1,0 +1,54 @@
+{{- $page := . -}}
+{{- with $page.Site.Params.comments.waline -}}
+{{- $serverURL := or .serverurl (getenv "HUGO_WALINE_SERVER_URL") -}}
+
+{{- if $serverURL -}}
+<link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css">
+<div id="waline" class="waline-container"></div>
+<style>
+    .waline-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+        --waline-font-size: var(--article-font-size);
+        --waline-theme-color: var(--accent-color);
+        --waline-active-color: var(--accent-color-darker);
+        --waline-bg-color: transparent;
+        --waline-bg-color-light: transparent;
+        --waline-border-color: var(--card-separator-color);
+        --waline-text-color: var(--card-text-color-main);
+        --waline-secondary-color: var(--card-text-color-secondary);
+    }
+</style>
+
+{{- $config := dict
+    "el" "#waline"
+    "serverURL" $serverURL
+    "path" $page.RelPermalink
+    "dark" `html[data-scheme="dark"]`
+    "lang" .lang
+    "login" .login
+    "pageSize" .pagesize
+    "pageview" .pageview
+    "reaction" .reaction
+    "search" .search
+    "wordLimit" .wordlimit
+    "commentSorting" .commentsorting
+    "meta" .meta
+    "requiredMeta" .requiredmeta
+    "emoji" .emoji
+    "locale" .locale
+-}}
+
+<script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    init({{ $config | jsonify | safeJS }});
+</script>
+{{- else -}}
+<div class="waline-container">
+    <p>评论服务尚未配置。部署 Waline 后，设置 <code>HUGO_WALINE_SERVER_URL</code> 或 <code>params.comments.waline.serverURL</code>。</p>
+</div>
+{{- end -}}
+{{- end -}}
