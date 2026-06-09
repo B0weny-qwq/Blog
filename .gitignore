@@ -4,3 +4,4 @@ resources
 .DS_Store
 assets/jsconfig.json
 content/post/.codex
+.tools/

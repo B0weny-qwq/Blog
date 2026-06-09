@@ -6,7 +6,7 @@ menu:
     main:
         weight: 5
         params:
-            icon: info
+            icon: user
 ---
 
 # 关于本站
