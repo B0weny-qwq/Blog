@@ -1,7 +1,7 @@
 ---
 title: 期末月比高考还难熬
 slug: final-month-harder-than-gaokao
-date: 2026-07-10
+date: 2026-07-10T00:10:00+08:00
 draft: false
 categories:
   - 生活随笔
