@@ -2,7 +2,7 @@
 title: RTOS 前传：先把 STM32F407 的编译黑盒拆了
 slug: stm32f407-rtos-prequel-build-from-scratch
 date: 2026-08-16T01:42:00+08:00
-draft: true
+draft: false
 categories:
   - 嵌入式开发
 tags:
