@@ -1,5 +1,5 @@
 ---
-title: RTOS 前传：先把 STM32F407 的编译黑盒拆了
+title: RTOS 前传：先把IDE的编译黑盒拆了
 slug: stm32f407-rtos-prequel-build-from-scratch
 date: 2026-08-16T01:42:00+08:00
 draft: false
@@ -12,7 +12,7 @@ tags:
   - ARM
   - 工具链
 ---
-# RTOS 前传：先把 STM32F407 的编译黑盒拆了
+# RTOS 前传：先把IDE的编译黑盒拆了
 
 之前其实学过 `RTOS`，但那时候纯纯把它当黑盒来用：会创建任务、会调度，能跑起来就完事了。`CMake` 也差不多，自己甚至没怎么手写过。
 
