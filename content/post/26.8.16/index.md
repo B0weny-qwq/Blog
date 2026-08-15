@@ -50,6 +50,8 @@ gh repo clone STMicroelectronics/STM32CubeF4 -- --depth 1 --recursive
 
 ## 一个最小工程需要什么
 
+![STM32F407 最小工程](image/index/最小工程.png)
+
 先从 CubeF4 里复制三个关键文件：
 
 ```text
