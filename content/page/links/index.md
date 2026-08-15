@@ -1,9 +1,9 @@
 ---
 title: 友链
 links:
-  - title: GrooveWJH
-    website: https://github.com/GrooveWJH
-    image: https://github.com/GrooveWJH.png
+  - title: GrooveSino
+    website: https://github.com/GrooveSino
+    image: GrooveSino.jpg
   - title: SOV710
     website: https://github.com/SOV710
     image: https://github.com/SOV710.png
